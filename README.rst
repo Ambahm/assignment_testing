@@ -31,9 +31,11 @@ testing root:
 
     .. code-block:: bash
 
-        PYTHONPATH=$PYTHONPATH$PWD$SRCDIR pylint -r n $SRCDIR
+        PYTHONPATH=$PYTHONPATH$PWD pylint --rcfile=./pylintrc $SRCDIR
 
-Where ``$SRCDIR`` is the location of the source code to be linted
+Where ``$SRCDIR`` is the location of the source code to be linted. Please
+remember that all linted files must either be listed directly or be part of a
+package (with a corresponding __init__.py).
 
 Unittest
 --------
@@ -51,7 +53,7 @@ To execute unit tests, type the following from the project root:
 
     .. code-block:: bash
 
-        PYTHONPATH=$PYTHONPATH:$SRCDIR nosetests -w unit/$LESSON_ID
+        PYTHONPATH=$PYTHONPATH:$SRCDIR nosetests -s -w unit/$LESSON_ID
 
 Where ``$SRCDIR`` is the test-able code source and ``$LESSON_ID`` is the test
 lesson folder id.

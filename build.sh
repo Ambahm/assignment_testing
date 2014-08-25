@@ -8,7 +8,7 @@ LOGDIR="${TESTROOT}/target"
 export PYTHONPATH="${PYTHONPATH}:${TESTROOT}:${SRCROOT}"
 
 # lint tests
-pylint --rcfile="${TESTROOT}/pylintrc" "${SRCROOT}" > "${LOGDIR}/pylint.log"
+pylint --rcfile="${TESTROOT}/pylintrc" "${SRCROOT}" | tee "${LOGDIR}/pylint.log"
 
 # unit tests
 nosetests -w "${TESTROOT}/unit/${LESSON_ID}" --with-xunit --xunit-file="${LOGDIR}/nosetest.xml"

@@ -12,10 +12,10 @@ profile=no
 
 # Add files or directories to the blacklist. They should be base names, not
 # paths.
-ignore=CVS
+ignore=CVS .git .hg .svn .bzr
 
 # Pickle collected data for later comparisons.
-persistent=yes
+persistent=no
 
 # List of plugins (as comma separated values of python modules names) to load,
 # usually to register additional checkers.
@@ -33,7 +33,8 @@ load-plugins=pylintplugins.pep8,pylintplugins.pep263,pylintplugins.strings
 # can either give multiple identifier separated by comma (,) or put this option
 # multiple time (only on the command line, not in the configuration file where
 # it should appear only once).
-disable=W0142,
+disable=R,
+  W0142,
   W1320,
   E1320
 #  C0330
@@ -47,15 +48,36 @@ disable=W0142,
 #  E8128
 
 # Disabled Checks
-#
 # W0142 (star-args)
 # E812* All PEP8 E12*
 # E8501 PEP8 line too long
 # C0330 (bad-continuation)
+# R (all checks of type Refactor)
+
+# Brain-dead errors regarding standard language features
+# W0142 = *args and **kwargs support
+# W0403 = Relative imports
+   
+# Pointless whining
+# R0201 = Method could be a function
+# W0212 = Accessing protected attribute of client class
+# W0613 = Unused argument
+# W0232 = Class has no __init__ method
+# R0903 = Too few public methods
+# C0301 = Line too long
+# R0913 = Too many arguments
+# C0103 = Invalid name
+# R0914 = Too many local variables
+
+# PyLint's module importation is unreliable
+# F0401 = Unable to import module
+# W0402 = Uses of a deprecated module
+
+# Already an error when wildcard imports are used
+# W0614 = Unused import from wildcard
 
 
 [REPORTS]
-
 # Set the output format. Available formats are text, parseable, colorized, msvs
 # (visual studio) and html. You can also give a reporter class, eg
 # mypackage.mymodule.MyReporterClass.
@@ -67,7 +89,7 @@ output-format=text
 files-output=no
 
 # Tells whether to display a full report or only the messages
-reports=yes
+reports=no
 
 # Python expression which should return a note less than 10 (10 is the highest
 # note). You have access to the variables errors warning, statement which
