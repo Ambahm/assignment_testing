@@ -30,9 +30,5 @@ RUN pip install \
     BeautifulSoup \
     numpy
 
-# Change the default shell to give read delimiter support
-RUN /bin/bash -c
-
 # Setup workspaces
 ENV WORKSPACE /var/workspace
-

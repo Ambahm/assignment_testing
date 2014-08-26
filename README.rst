@@ -81,6 +81,6 @@ use the following commands.
 
         cd testing
         docker build -t infosys-pytest-env .
-        docker run --rm -e WORKSPACE=/var/workspace -e LESSON_ID=$LESSON_ID -v ../:/var/workspace infosys-pytest-env /var/workspace/testing/build.sh
+        docker run --entrypoint="/bin/bash" --rm -e WORKSPACE=/var/workspace -e LESSON_ID=$LESSON_ID -v ../:/var/workspace infosys-pytest-env /var/workspace/testing/build.sh
 
 Where ``$LESSON_ID`` is the UD of the lesson whose tests will be run.
