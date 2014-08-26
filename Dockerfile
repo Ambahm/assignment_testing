@@ -1,6 +1,6 @@
 # infosys-pytest-env
 # 
-# Version 0.1.0
+# Version 0.2.0
 
 FROM ubuntu:14.04
 MAINTAINER Chad Heuschober "chad.heuschober@cuny.edu"
@@ -29,6 +29,9 @@ RUN pip install \
     mockito \ 
     BeautifulSoup \
     numpy
+
+# Change the default shell to give read delimiter support
+RUN /bin/bash -c
 
 # Setup workspaces
 ENV WORKSPACE /var/workspace
