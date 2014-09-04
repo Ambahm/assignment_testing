@@ -36,7 +36,9 @@ load-plugins=pylintplugins.pep8,pylintplugins.pep263,pylintplugins.strings
 disable=R,
   W0142,
   W1320,
-  E1320
+  E1320,
+  C0304,
+  W8292
 #  C0330
 #  E8121,
 #  E8122,
@@ -53,6 +55,8 @@ disable=R,
 # E8501 PEP8 line too long
 # C0330 (bad-continuation)
 # R (all checks of type Refactor)
+# C0304 (no newline at end of file)
+# W8292 (PEP8 no newline at end of file)
 
 # Brain-dead errors regarding standard language features
 # W0142 = *args and **kwargs support
