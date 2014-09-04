@@ -20,8 +20,8 @@ class L02T11TestCase(unittest.TestCase):
         """
         Tests that the FLEMISH variable exists and has the correct value.
         """
-        post_replace = expectation.FISHY.replace('Spanish', 'Flemish', 1)
-        self.assertEqual(expectation.FLEMISH, post_replace)
+        post_replace = flemish.FISHY.replace('Spanish', 'Flemish', 1)
+        self.assertEqual(flemish.FLEMISH, post_replace)
 
 
 if __name__ == '__main__':
