@@ -27,8 +27,9 @@ RUN pip install \
     unittest-xml-reporting \
     nose \
     mockito \ 
-    BeautifulSoup \
-    numpy
+    beautifulsoup4 \
+    numpy \
+    mock
 
 # Setup workspaces
 ENV WORKSPACE /var/workspace
