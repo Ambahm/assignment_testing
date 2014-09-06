@@ -12,7 +12,7 @@ import random
 import task_04
 
 
-class Lesson03Task03TestCase(unittest.TestCase):
+class Lesson03Task04TestCase(unittest.TestCase):
     """
     Test cases for lesson 03 task 04.
 

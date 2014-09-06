@@ -11,7 +11,7 @@ import decimal
 import sys
 
 # Import user libs
-import task_04
+import task_05
 
 
 class Lesson03Task05TestCase(unittest.TestCase):
@@ -43,6 +43,7 @@ class Lesson03Task05TestCase(unittest.TestCase):
                 [0, 199999, 31, 40, True, None],
         ]
 
+
     def calculate_interest(self, principal, rate, yrs):
         """
         Calculates a total for interest + principal when compounded monthly.
@@ -55,9 +56,6 @@ class Lesson03Task05TestCase(unittest.TestCase):
 
         return total
 
-
-    def get_bool_value(self, strval):
-        return True if strval[0:1].lower() == 'y' else False
 
     def test_total(self):
         """
@@ -72,6 +70,7 @@ class Lesson03Task05TestCase(unittest.TestCase):
             with mock.patch('__builtin__.raw_input', side_effect=mock_input):
                 task_05 = reload(task_05)
                 self.assertEqual(total, task_05.TOTAL)
+
 
 if __name__ == '__main__':
     unittest.main()
