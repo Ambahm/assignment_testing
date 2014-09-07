@@ -16,67 +16,25 @@ class Lesson03Task04TestCase(unittest.TestCase):
 
     def test_weekend(self):
         """
-        Tests that it will snooze for a weekend after 0600, eg 'Sunday'.
+        Tests that it will snooze when expected to do so.
         """
-        mock_input = ['Sunday', '0700']
-        with mock.patch('__builtin__.raw_input', side_effect=mock_input):
-            try:
-                task_04 = reload(task_04)
-            except NameError:
-                import task_04
-        self.assertTrue(task_04.SNOOZE)
+        test_cases = [
+                ['Sunday', '0700', True],
+                ['Sun', '0700', True],
+                ['sUnDay', '0700', True],
+                ['Monday', '0500', True],
+                ['Monday', '2300', False],
+        ]
 
+        msg = 'Expected SNOOZE to be {2}. (Day: {0}, Time: {1})'
+        for case in test_cases:
+            with mock.patch('__builtin__.raw_input', side_effect=case[:2]):
+                try:
+                    task_04 = reload(task_04)
+                except NameError:
+                    import task_04
 
-    def test_weekend_abbr(self):
-        """
-        Tests that it will snooze for a weekend abbreviation, eg 'Sun'.
-        """
-        mock_input = ['Sun', '0700']
-        with mock.patch('__builtin__.raw_input', side_effect=mock_input):
-            try:
-                task_04 = reload(task_04)
-            except NameError:
-                import task_04
-        self.assertTrue(task_04.SNOOZE)
-
-
-    def test_weekend_casing(self):
-        """
-        Tests that it will snooze for a weekend with unusual casing.
-        """
-        mock_input = ['sUnDay', '0700']
-        with mock.patch('__builtin__.raw_input', side_effect=mock_input):
-            try:
-                task_04 = reload(task_04)
-            except NameError:
-                import task_04
-        self.assertTrue(task_04.SNOOZE)
-
-
-    def test_weekday_snooze(self):
-        """
-        Tests that it will snooze for a weekday at '0500'.
-        """
-        mock_input = ['Monday', '0500']
-        with mock.patch('__builtin__.raw_input', side_effect=mock_input):
-            try:
-                task_04 = reload(task_04)
-            except NameError:
-                import task_04
-        self.assertTrue(task_04.SNOOZE)
-
-
-    def test_weekday_late_snooze(self):
-        """
-        Tests that it will not snooze for a weekday at '2300'.
-        """
-        mock_input = ['Monday', '2300']
-        with mock.patch('__builtin__.raw_input', side_effect=mock_input):
-            try:
-                task_04 = reload(task_04)
-            except NameError:
-                import task_04
-        self.assertFalse(task_04.SNOOZE)
+            self.assertIs(task_04.SNOOZE, case[2], msg.format(*case))
 
 
 if __name__ == '__main__':
