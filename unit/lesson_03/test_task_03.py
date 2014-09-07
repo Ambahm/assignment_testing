@@ -8,9 +8,6 @@ import unittest
 import mock
 import random
 
-# Import user libs
-import task_03
-
 
 class Lesson03Task03TestCase(unittest.TestCase):
     """
@@ -23,13 +20,13 @@ class Lesson03Task03TestCase(unittest.TestCase):
         Tests that the user decision tree is followed in selecting colors.
         """
         colors = {
-            'seattle gray': {
-                'ceramic glaze': ['basically white', 'white'],
-                'cumulus nimbus': ['off-white', 'paper white']
+            'Seattle Gray': {
+                'Ceramic Glaze': ['Basically White', 'White'],
+                'Cumulus Nimbus': ['Off-White', 'Paper White']
             },
-            'manatee': {
-                'platinum mist': ['bone white', 'just white'],
-                'spartan sage': ['fractal white', 'not white']
+            'Manatee': {
+                'Platinum Mist': ['Bone White', 'Just White'],
+                'Spartan Sage': ['Fractal White', 'Not White']
             }
         }
 
@@ -39,11 +36,14 @@ class Lesson03Task03TestCase(unittest.TestCase):
                     mock_input = [base, accent, highlight]
                     with mock.patch('__builtin__.raw_input',
                             side_effect=mock_input):
-                        task_03 = reload(task_03)
+                        try:
+                            task_03 = reload(task_03)
+                        except NameError:
+                            import task_03
 
-                        self.assertEqual(task_03.BASE.lower(), base)
-                        self.assertEqual(task_03.ACCENT.lower(), accent)
-                        self.assertEqual(task_03.HIGHLIGHT.lower(), highlight)
+                        self.assertEqual(task_03.BASE, base)
+                        self.assertEqual(task_03.ACCENT, accent)
+                        self.assertEqual(task_03.HIGHLIGHT, highlight)
 
 
 if __name__ == '__main__':

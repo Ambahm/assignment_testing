@@ -8,9 +8,6 @@ import unittest
 import mock
 import random
 
-# Import user libs
-import task_02
-
 
 class Lesson03Task02TestCase(unittest.TestCase):
     """
@@ -31,8 +28,11 @@ class Lesson03Task02TestCase(unittest.TestCase):
 
         for key, value in levels.iteritems():
             systolic = random.randint(value[0], value[1])
-            with mock.patch('__builtin__.raw_input',  return_value=systolic):
-                task_02 = reload(task_02)
+            with mock.patch('__builtin__.raw_input', side_effect=[systolic]):
+                try:
+                    task_02 = reload(task_02)
+                except NameError:
+                    import task_02
                 self.assertEqual(task_02.BP_STATUS.lower(), key)
 
 

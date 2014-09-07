@@ -22,7 +22,7 @@ class Lesson03Task01TestCase(unittest.TestCase):
         with mock.patch('__builtin__.raw_input',  side_effect=values):
             import task_01
             self.assertEqual(task_01.QUESTION_01, values[0])
-            self.assertEqual(task_02.QUESTION_02, values[1])
+            self.assertEqual(task_01.QUESTION_02, values[1])
 
 
 if __name__ == '__main__':

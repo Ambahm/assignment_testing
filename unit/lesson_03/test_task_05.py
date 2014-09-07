@@ -10,9 +10,6 @@ import random
 import decimal
 import sys
 
-# Import user libs
-import task_05
-
 
 class Lesson03Task05TestCase(unittest.TestCase):
     """
@@ -20,15 +17,14 @@ class Lesson03Task05TestCase(unittest.TestCase):
 
     """
 
-    def __init__(self):
-        super(Lesson03Task05TestCase, self).__init__()
+    def setUp(self):
         self.test_data = [
-                [0, 199999, 1, 15, True, '3.63'],
-                [0, 199999, 1, 15, False, '4.65'],
-                [0, 199999, 16, 20, True, '4.04'],
-                [0, 199999, 16, 20, False, '4.98'],
-                [0, 199999, 21, 30, True, '5.77'],
-                [0, 199999, 21, 30, False, '6.39'],
+                [1, 199999, 1, 15, True, '3.63'],
+                [1, 199999, 1, 15, False, '4.65'],
+                [1, 199999, 16, 20, True, '4.04'],
+                [1, 199999, 16, 20, False, '4.98'],
+                [1, 199999, 21, 30, True, '5.77'],
+                [1, 199999, 21, 30, False, '6.39'],
                 [200000, 999999, 1, 15, True, '3.02'],
                 [200000, 999999, 1, 15, False, '3.98'],
                 [200000, 999999, 16, 20, True, '3.27'],
@@ -40,7 +36,7 @@ class Lesson03Task05TestCase(unittest.TestCase):
                 [200000, 999999, 21, 30, False, None],
                 [1000000, sys.maxint, 1, 15, False, None],
                 [1000000, sys.maxint, 21, 30, True, None],
-                [0, 199999, 31, 40, True, None],
+                [1, 199999, 31, 40, True, None],
         ]
 
 
@@ -49,27 +45,46 @@ class Lesson03Task05TestCase(unittest.TestCase):
         Calculates a total for interest + principal when compounded monthly.
         """
         if rate:
-            dec_rt = decimal.Decimal(rate)
-            total = int(round(principal * ((1 + (dec_rt / 12)) ** (12 * yrs)))
+            dec_rt = decimal.Decimal(rate) / 100
+            total = int(round(principal * ((1 + (dec_rt / 12)) ** (12 * yrs))))
         else:
             total = None
 
         return total
 
 
+    def get_str_bool(self, value):
+        """
+        Returns a 1-3 character string of Yes/No for boolean values
+        """
+        return 'y' if value else 'n'
+
+
     def test_total(self):
         """
         Tests for the value of ``TOTAL``.
         """
-        for data in self.test_data:
-            principal = random.randint(data[0], data[1])
-            years = random.randint(data[2], data[3])
-            total = self.calculate_interest(principal, data[5], years)
+        for raw_data in self.test_data:
+    
+            low_data = [raw_data[0], raw_data[0], raw_data[2], raw_data[2],
+                        raw_data[4], raw_data[5]]
+            high_data = [raw_data[1], raw_data[1], raw_data[3], raw_data[3],
+                         raw_data[4], raw_data[5]]
 
-            mock_input['Mountebank Singes', principal, years, data[4]]
-            with mock.patch('__builtin__.raw_input', side_effect=mock_input):
-                task_05 = reload(task_05)
-                self.assertEqual(total, task_05.TOTAL)
+            for data in [low_data, raw_data, high_data]:
+                principal = random.randint(data[0], data[1])
+                years = random.randint(data[2], data[3])
+                total = self.calculate_interest(principal, data[5], years)
+
+                mock_input = ['Mountebank Singes', str(principal), str(years),
+                              self.get_str_bool(data[4])]
+                with mock.patch('__builtin__.raw_input',
+                                side_effect=mock_input):
+                    try:
+                        task_05 = reload(task_05)
+                    except NameError:
+                        import task_05
+                    self.assertEqual(total, task_05.TOTAL)
 
 
 if __name__ == '__main__':
